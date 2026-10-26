@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Kashiful Uloom Computer Class — Online MCQ Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<!-- <link rel="stylesheet" href="style.css"> -->
+ <style>
+  /* ==========================================================================
+   Kashiful Uloom Computer Class — Online MCQ Test
+   Design tokens
+   ========================================================================== */
+
+:root {
+  /* Palette */
+  --navy-900: #10192c;
+  --navy-800: #16243d;
+  --navy-700: #1f3358;
+  --navy-500: #35507f;
+  --brass-600: #9c7127;
+  --brass-500: #b8863a;
+  --brass-100: #f3e6cd;
+
+  --paper: #f6f4ee;
+  --paper-raised: #ffffff;
+  --line: #dfd9c8;
+  --line-strong: #c9c0a8;
+
+  --ink-900: #191712;
+  --ink-700: #3c382f;
+  --ink-500: #6b6656;
+  --ink-400: #918c78;
+
+  --success-600: #206a45;
+  --success-100: #dcece1;
+  --danger-600: #a83a2c;
+  --danger-100: #f4ded9;
+  --warning-600: #a3660f;
+  --warning-100: #f3e5c9;
+
+  /* Type */
+  --font-serif: "Lora", "Iowan Old Style", "Georgia", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* Shape */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --shadow-card: 0 1px 2px rgba(25, 23, 18, 0.04), 0 8px 24px -12px rgba(25, 23, 18, 0.18);
+}
+
+/* ==========================================================================
+   Reset & base
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink-900);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* Exam-mode text/interaction restrictions (still respects focus states) */
+body.exam-active {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+img, svg {
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass-600);
+  outline-offset: 2px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Layout shells
+   ========================================================================== */
+
+.screen {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Screen 1 — Start
+   ========================================================================== */
+
+#screen-start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background:
+    radial-gradient(60% 50% at 15% 0%, rgba(31, 51, 88, 0.06), transparent 60%),
+    var(--paper);
+}
+
+.start-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 40px 36px 32px;
+  text-align: center;
+}
+
+.crest {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--navy-900);
+  color: var(--brass-100);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.org-label {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-500);
+}
+
+.course-title {
+  margin: 0 0 4px;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 30px;
+  color: var(--navy-900);
+  line-height: 1.15;
+}
+
+.exam-kicker {
+  margin: 0 0 14px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--brass-600);
+}
+
+.exam-meta {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-500);
+}
+
+.rule {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 24px 0;
+}
+
+.start-instruction {
+  margin: 0 0 20px;
+  font-size: 15px;
+  color: var(--ink-700);
+}
+
+.field-label {
+  display: block;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-700);
+  margin-bottom: 6px;
+}
+
+.text-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: var(--font-sans);
+  color: var(--ink-900);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  margin-bottom: 18px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.text-input:focus {
+  border-color: var(--navy-700);
+  background: var(--paper-raised);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 51, 88, 0.14);
+}
+
+.start-footnote {
+  margin: 18px 0 0;
+  font-size: 12.5px;
+  color: var(--ink-400);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.08s ease, opacity 0.15s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-primary {
+  background: var(--navy-900);
+  color: #fdfcf9;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--navy-700);
+}
+
+.btn-primary:disabled {
+  background: var(--line-strong);
+  color: var(--paper-raised);
+  opacity: 0.8;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-700);
+  border-color: var(--line-strong);
+}
+
+.btn-ghost:hover {
+  background: var(--paper);
+}
+
+.btn-danger {
+  background: var(--danger-600);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #8f3125;
+}
+
+/* ==========================================================================
+   Overlays (resume / confirm submit)
+   ========================================================================== */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 25, 44, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.overlay-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--paper-raised);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+  padding: 30px 28px;
+  text-align: left;
+}
+
+.overlay-kicker {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--brass-600);
+}
+
+.overlay-kicker-warn {
+  color: var(--warning-600);
+}
+
+.overlay-title {
+  margin: 0 0 10px;
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--navy-900);
+}
+
+.overlay-text {
+  margin: 0 0 22px;
+  font-size: 14.5px;
+  color: var(--ink-700);
+  line-height: 1.55;
+}
+
+.overlay-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   Screen 2 — Exam
+   ========================================================================== */
+
+#screen-exam {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+}
+
+.exam-topbar {
+  background: var(--navy-900);
+  color: #f3f1ea;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 16px -8px rgba(0, 0, 0, 0.4);
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.crest-sm {
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+  flex-shrink: 0;
+  background: var(--brass-500);
+  color: var(--navy-900);
+}
+
+.topbar-titles {
+  min-width: 0;
+}
+
+.topbar-org {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brass-100);
+}
+
+.topbar-course {
+  margin: 1px 0 0;
+  font-size: 12.5px;
+  color: #c3c9d6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-status {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.student-chip {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.student-chip-label {
+  font-size: 10.5px;
+  text-transform: none;
+  color: #9aa3b5;
+}
+
+.student-chip-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f3f1ea;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timer-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-sm);
+  padding: 6px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 108px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.timer-label {
+  font-size: 10.5px;
+  color: #9aa3b5;
+}
+
+.timer-display {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #f3f1ea;
+}
+
+.timer-card.timer-warning {
+  background: rgba(184, 134, 58, 0.16);
+  border-color: rgba(184, 134, 58, 0.5);
+}
+
+.timer-card.timer-warning .timer-display {
+  color: var(--brass-500);
+}
+
+.timer-card.timer-critical {
+  background: rgba(168, 58, 44, 0.2);
+  border-color: rgba(168, 58, 44, 0.6);
+  animation: pulse-critical 1s ease-in-out infinite;
+}
+
+.timer-card.timer-critical .timer-display {
+  color: #e8a99e;
+}
+
+@keyframes pulse-critical {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(168, 58, 44, 0.35); }
+  50% { box-shadow: 0 0 0 6px rgba(168, 58, 44, 0); }
+}
+
+.progress-row {
+  max-width: 760px;
+  margin: 22px auto 0;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.progress-text {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-500);
+}
+
+.progress-track {
+  height: 6px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--brass-500);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.question-area {
+  flex: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.question-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 32px 30px;
+}
+
+.question-number {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--brass-600);
+}
+
+.question-text {
+  margin: 0 0 26px;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--navy-900);
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.option-row:hover:not(:disabled) {
+  border-color: var(--navy-500);
+  background: var(--paper-raised);
+}
+
+.option-letter {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-500);
+  transition: border-color 0.12s ease, background 0.12s ease, color 0.12s ease;
+}
+
+.option-text {
+  font-size: 15px;
+  color: var(--ink-900);
+}
+
+.option-row.selected {
+  border-color: var(--navy-700);
+  background: var(--brass-100);
+}
+
+.option-row.selected .option-letter {
+  background: var(--navy-900);
+  border-color: var(--navy-900);
+  color: var(--brass-100);
+}
+
+.option-row.locked-out {
+  opacity: 0.55;
+}
+
+.option-row:disabled {
+  cursor: not-allowed;
+}
+
+.question-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lock-hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-500);
+}
+
+/* ==========================================================================
+   Screen 3 — Result
+   ========================================================================== */
+
+#screen-result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: var(--paper);
+}
+
+.result-card {
+  width: 100%;
+  max-width: 640px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 40px 36px;
+  text-align: center;
+}
+
+.result-heading {
+  margin: 0 0 24px;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--navy-900);
+}
+
+.status-banner {
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 26px;
+  border: 1px solid transparent;
+}
+
+.status-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.status-detail {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.status-completed {
+  background: var(--success-100);
+  border-color: rgba(32, 106, 69, 0.25);
+  color: var(--success-600);
+}
+
+.status-expired {
+  background: var(--warning-100);
+  border-color: rgba(163, 102, 15, 0.25);
+  color: var(--warning-600);
+}
+
+.status-violation {
+  background: var(--danger-100);
+  border-color: rgba(168, 58, 44, 0.25);
+  color: var(--danger-600);
+}
+
+.result-student {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  font-size: 14.5px;
+}
+
+.result-student-label {
+  color: var(--ink-500);
+}
+
+.result-student-name {
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.score-display {
+  margin-bottom: 26px;
+}
+
+.score-fraction {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--navy-900);
+  line-height: 1.1;
+}
+
+.score-percentage {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--brass-600);
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.result-stat {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 8px;
+  background: var(--paper);
+}
+
+.result-stat-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--navy-900);
+}
+
+.result-stat-label {
+  display: block;
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--ink-500);
+}
+
+.result-footnote {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ink-400);
+}
+
+/* ==========================================================================
+   Answer review (per-question breakdown)
+   ========================================================================== */
+
+.review-section {
+  text-align: left;
+  margin-bottom: 26px;
+}
+
+.review-heading {
+  margin: 0 0 4px;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--navy-900);
+}
+
+.review-subheading {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--ink-500);
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.review-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  padding: 14px 16px;
+}
+
+.review-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.review-item-number {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-500);
+}
+
+.review-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.review-badge-correct {
+  background: var(--success-100);
+  color: var(--success-600);
+}
+
+.review-badge-wrong {
+  background: var(--danger-100);
+  color: var(--danger-600);
+}
+
+.review-badge-unanswered {
+  background: var(--warning-100);
+  color: var(--warning-600);
+}
+
+.review-item-question {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-900);
+}
+
+.review-item-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.review-answer-line {
+  margin: 0;
+  font-size: 13px;
+}
+
+.review-answer-label {
+  color: var(--ink-500);
+  font-weight: 600;
+}
+
+.review-value-correct {
+  color: var(--success-600);
+  font-weight: 600;
+}
+
+.review-value-wrong {
+  color: var(--danger-600);
+  font-weight: 600;
+}
+
+.review-value-muted {
+  color: var(--ink-400);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .start-card {
+    padding: 32px 22px 26px;
+  }
+
+  .course-title {
+    font-size: 25px;
+  }
+
+  .exam-topbar {
+    padding: 12px 16px;
+  }
+
+  .topbar-course {
+    max-width: 220px;
+  }
+
+  .topbar-status {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .progress-row,
+  .question-area {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .question-card {
+    padding: 24px 20px;
+  }
+
+  .question-text {
+    font-size: 18px;
+  }
+
+  .question-footer {
+    justify-content: center;
+  }
+
+  .question-footer .btn {
+    width: 100%;
+  }
+
+  .result-card {
+    padding: 30px 22px;
+  }
+
+  .result-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .score-fraction {
+    font-size: 40px;
+  }
+
+  .review-list {
+    max-height: 320px;
+  }
+}
+
+@media (max-width: 400px) {
+  .student-chip {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .timer-card.timer-critical {
+    animation: none;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+ </style>
+</head>
+<body>
+
+<!-- ============ SCREEN 1: START ============ -->
+<main id="screen-start" class="screen" aria-live="polite">
+  <div class="start-card">
+    <div class="crest" aria-hidden="true">KU</div>
+    <p class="org-label">Kashiful Uloom Computer Class</p>
+    <h1 class="course-title">Basic Computer Course</h1>
+    <p class="exam-kicker">Online MCQ Test</p>
+    <p class="exam-meta">30 Sawaal&nbsp;&bull;&nbsp;30 Marks&nbsp;&bull;&nbsp;20 Minute</p>
+
+    <hr class="rule">
+
+    <p class="start-instruction">Exam shuru karne ke liye apna pura naam likhein.</p>
+
+    <form id="start-form" novalidate>
+      <label for="student-name" class="field-label">Apna Naam Likhein</label>
+      <input
+        type="text"
+        id="student-name"
+        name="student-name"
+        class="text-input"
+        placeholder="Jaise: Mohammed Arif Khan"
+        autocomplete="off"
+        maxlength="60"
+        required>
+      <button type="submit" id="start-btn" class="btn btn-primary btn-block" disabled>Exam Shuru Karein</button>
+    </form>
+
+    <p class="start-footnote">Ek baar exam shuru hone ke baad, 20-minute ka timer na to pause hoga na dobara start hoga.</p>
+  </div>
+</main>
+
+<!-- ============ RESUME OVERLAY (shown after a refresh mid-exam) ============ -->
+<div id="overlay-resume" class="overlay hidden">
+  <div class="overlay-card">
+    <p class="overlay-kicker">Session Restore Ho Gaya</p>
+    <h2 class="overlay-title">Wapas aane ke liye shukriya, <span id="resume-name">Student</span></h2>
+    <p class="overlay-text">Aapka exam abhi bhi chal raha hai. Original 20-minute ki deadline wahi se continue hogi jahan se chhoda tha — ab resume karke aage badhein.</p>
+    <button id="resume-btn" class="btn btn-primary btn-block">Exam Resume Karein</button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 2: EXAM ============ -->
+<main id="screen-exam" class="screen hidden">
+  <header class="exam-topbar">
+    <div class="topbar-brand">
+      <div class="crest crest-sm" aria-hidden="true">KU</div>
+      <div class="topbar-titles">
+        <p class="topbar-org">Kashiful Uloom Computer Class</p>
+        <p class="topbar-course">Basic Computer Course — Online MCQ Test</p>
+      </div>
+    </div>
+    <div class="topbar-status">
+      <div class="student-chip">
+        <span class="student-chip-label">Student</span>
+        <span id="student-name-display" class="student-chip-name">—</span>
+      </div>
+      <div id="timer-card" class="timer-card" role="timer" aria-live="off">
+        <span class="timer-label">Bacha Hua Time</span>
+        <span id="timer-display" class="timer-display">20:00</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="progress-row">
+    <p id="progress-text" class="progress-text">Sawaal 1 of 30</p>
+    <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="30" aria-valuenow="1">
+      <div id="progress-fill" class="progress-fill" style="width: 3.33%;"></div>
+    </div>
+  </div>
+
+  <section class="question-area">
+    <div class="question-card">
+      <p id="question-number" class="question-number">Sawaal 1</p>
+      <h2 id="question-text" class="question-text">Loading question…</h2>
+      <div id="options-list" class="options-list" role="radiogroup" aria-labelledby="question-text"></div>
+    </div>
+
+    <div class="question-footer">
+      <p id="lock-hint" class="lock-hint">Aage badhne ke liye ek option select karein. Select karte hi answer lock ho jayega.</p>
+      <button id="next-btn" class="btn btn-primary" disabled>Agla Sawaal</button>
+    </div>
+  </section>
+</main>
+
+<!-- ============ SUBMIT CONFIRM MODAL ============ -->
+<div id="overlay-confirm" class="overlay hidden">
+  <div class="overlay-card">
+    <p class="overlay-kicker overlay-kicker-warn">Adhura Exam</p>
+    <h2 class="overlay-title">Aapke kuch sawaal answer nahi hue hain</h2>
+    <p class="overlay-text">Kya aap submit karna chahte hain? Jo sawaal answer nahi hue unke 0 marks milenge, aur aap wapas jaakar unhe answer nahi kar sakte.</p>
+    <div class="overlay-actions">
+      <button id="confirm-cancel-btn" class="btn btn-ghost">Cancel</button>
+      <button id="confirm-submit-btn" class="btn btn-danger">Exam Submit Karein</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCREEN 3: RESULT ============ -->
+<main id="screen-result" class="screen hidden">
+  <div class="result-card">
+    <p class="org-label">Kashiful Uloom Computer Class</p>
+    <h1 class="result-heading">Basic Computer Course — Exam Ka Result</h1>
+
+    <div id="status-banner" class="status-banner status-completed">
+      <p id="status-title" class="status-title">Exam Complete</p>
+      <p id="status-detail" class="status-detail"></p>
+    </div>
+
+    <div class="result-student">
+      <span class="result-student-label">Student Ka Naam</span>
+      <span id="result-student-name" class="result-student-name">—</span>
+    </div>
+
+    <div class="score-display">
+      <span id="result-score" class="score-fraction">0 / 30</span>
+      <span id="result-percentage" class="score-percentage">0.00%</span>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-stat">
+        <span class="result-stat-value" id="stat-total">30</span>
+        <span class="result-stat-label">Total Sawaal</span>
+      </div>
+      <div class="result-stat">
+        <span class="result-stat-value" id="stat-attempted">0</span>
+        <span class="result-stat-label">Attempt Kiye</span>
+      </div>
+      <div class="result-stat">
+        <span class="result-stat-value" id="stat-unanswered">0</span>
+        <span class="result-stat-label">Answer Nahi Kiye</span>
+      </div>
+      <div class="result-stat">
+        <span class="result-stat-value" id="stat-correct">0</span>
+        <span class="result-stat-label">Sahi</span>
+      </div>
+      <div class="result-stat">
+        <span class="result-stat-value" id="stat-wrong">0</span>
+        <span class="result-stat-label">Galat</span>
+      </div>
+    </div>
+
+    <div class="review-section">
+      <h2 class="review-heading">Answer Review</h2>
+      <p class="review-subheading">Har sawaal ka aapka jawab aur sahi jawab neeche dekhein.</p>
+      <div id="review-list" class="review-list"></div>
+    </div>
+
+    <p class="result-footnote">Ye exam khatam ho chuka hai aur ise dobara start ya attempt nahi kiya ja sakta.</p>
+  </div>
+</main>
+
+<!-- <script src="script.js"></script> -->
+ <script>
+  /* ==========================================================================
+   Kashiful Uloom Computer Class — Basic Computer Course
+   Online MCQ Test — Exam Engine (Hinglish version + Answer Review)
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------
+     Question bank (Hinglish). Technical/proper nouns (CPU, RAM, MS Word,
+     shortcut keys like "Ctrl + B") are kept as-is since these are used
+     the same way in Hindi/Hinglish speech.
+     Each entry: { q, o: [4 options], k: index (0-3) of correct option }.
+  ------------------------------------------------------------------ */
+  const BANK = [
+    { q: "Computer mein instructions ko process karne ke liye kaun jimmedar hota hai?", o: ["RAM", "CPU", "Monitor", "Keyboard"], k: 1 },
+    { q: "CPU ka kaunsa unit arithmetic aur logical operations perform karta hai?", o: ["CU", "ALU", "RAM", "ROM"], k: 1 },
+    { q: "Inme se kaunsa system software ka example hai?", o: ["MS Word", "MS PowerPoint", "Windows", "Calculator"], k: 2 },
+    { q: "Computer band hone par kaunsi memory ka data delete ho jata hai?", o: ["ROM", "Hard Disk", "RAM", "SSD"], k: 2 },
+    { q: "Inme se kaunsa ek output device hai?", o: ["Scanner", "Keyboard", "Mouse", "Monitor"], k: 3 },
+    { q: "Operating system ka main purpose kya hota hai?", o: ["Sirf presentations banana", "Computer hardware aur software ko manage karna", "Sirf documents print karna", "Sirf websites browse karna"], k: 1 },
+    { q: "Digital data ki sabse chhoti unit kaunsi hoti hai?", o: ["Byte", "Bit", "KB", "MB"], k: 1 },
+    { q: "Files ko permanently store karne ke liye generally kya use hota hai?", o: ["RAM", "Cache", "SSD", "Register"], k: 2 },
+    { q: "Select kiye gaye text ko bold karne ke liye kaunsa shortcut use hota hai?", o: ["Ctrl + B", "Ctrl + D", "Ctrl + M", "Ctrl + T"], k: 0 },
+    { q: "MS Word mein commonly galat spell hue words ko automatically correct karne wala feature kaunsa hai?", o: ["AutoFormat", "AutoCorrect", "WordArt", "Mail Merge"], k: 1 },
+    { q: "Kaunsi alignment text ko left aur right dono margins ke sath evenly align karti hai?", o: ["Left", "Right", "Center", "Justify"], k: 3 },
+    { q: "Mail Merge ka purpose kya hai?", o: ["Do documents ko ek document mein merge karna", "Multiple recipients ke liye personalized documents banana", "Page ka color change karna", "Pictures insert karna"], k: 1 },
+    { q: "Har page ke top ya bottom par text place karne ke liye kaunsa option use hota hai?", o: ["WordArt", "Header and Footer", "Text Box", "Page Border"], k: 1 },
+    { q: "MS Word mein Find dialog box kaunsa shortcut open karta hai?", o: ["Ctrl + F", "Ctrl + H", "Ctrl + G", "Ctrl + K"], k: 0 },
+    { q: "MS Word mein Ctrl + Enter press karne par kya hota hai?", o: ["Naya paragraph create hota hai", "Page break insert hota hai", "Document close ho jata hai", "Text center ho jata hai"], k: 1 },
+    { q: "Automatically ordered list generate karne ke liye kaunsa feature use hota hai?", o: ["Bullets and Numbering", "WordArt", "Mail Merge", "Track Changes"], k: 0 },
+    { q: "PowerPoint presentation ke basic individual page ko kya kehte hain?", o: ["Sheet", "Slide", "Document", "Frame"], k: 1 },
+    { q: "Multiple slides ko arrange aur reorder karne ke liye mainly kaunsa view use hota hai?", o: ["Normal View", "Slide Sorter View", "Reading View", "Notes Page"], k: 1 },
+    { q: "Kaunsa feature control karta hai ki ek slide dusri slide mein kaise change hoti hai?", o: ["Animation", "Transition", "Design", "Layout"], k: 1 },
+    { q: "Slide ke andar objects par movement effects apply karne ke liye kaunsa feature use hota hai?", o: ["Transition", "Animation", "Theme", "Layout"], k: 1 },
+    { q: "PowerPoint slideshow ko beginning se start karne ke liye kaunsa shortcut use hota hai?", o: ["F2", "F5", "F7", "F12"], k: 1 },
+    { q: "PowerPoint mein current slide se slideshow start karne ke liye kaunsa shortcut use hota hai?", o: ["Shift + F5", "Ctrl + F5", "Alt + F5", "Shift + F7"], k: 0 },
+    { q: "Kaunsa PowerPoint feature poori presentation mein same design style apply karne deta hai?", o: ["Slide Master", "Slide Sorter", "Animation Pane", "Notes"], k: 0 },
+    { q: "Modern PowerPoint presentation ke sath commonly kaunsi file extension associate hoti hai?", o: [".docx", ".xlsx", ".pptx", ".txt"], k: 2 },
+    { q: "Last action ko undo karne ke liye kaunsa shortcut use hota hai?", o: ["Ctrl + Y", "Ctrl + Z", "Ctrl + U", "Ctrl + X"], k: 1 },
+    { q: "Bahut saare Microsoft Office applications mein kisi undone action ko redo/repeat karne ke liye kaunsa shortcut use hota hai?", o: ["Ctrl + Y", "Ctrl + R", "Ctrl + E", "Ctrl + W"], k: 0 },
+    { q: "Sara content select karne ke liye kaunsa shortcut use hota hai?", o: ["Ctrl + S", "Ctrl + A", "Ctrl + L", "Ctrl + Q"], k: 1 },
+    { q: "Document save karne ke liye commonly kaunsa shortcut use hota hai?", o: ["Ctrl + P", "Ctrl + D", "Ctrl + S", "Ctrl + Shift + S"], k: 2 },
+    { q: "Document print karne ke liye kaunsa shortcut use hota hai?", o: ["Ctrl + P", "Ctrl + R", "Ctrl + Shift + P", "Alt + P"], k: 0 },
+    { q: "Aapne galti se MS Word mein ek paragraph delete kar diya aur turant wapas lana chahte hain. Kaunsa shortcut use karenge?", o: ["Ctrl + Y", "Ctrl + Z", "Ctrl + X", "Ctrl + B"], k: 1 }
+  ];
+
+  const TOTAL_QUESTIONS = BANK.length; // 30
+  const EXAM_DURATION_MS = 20 * 60 * 1000; // 20 minutes
+  const STORAGE_KEY = 'kuc_exam_state_v1';
+  const LETTERS = ['A', 'B', 'C', 'D'];
+
+  /* ------------------------------------------------------------------
+     DOM references
+  ------------------------------------------------------------------ */
+  const screenStart = document.getElementById('screen-start');
+  const screenExam = document.getElementById('screen-exam');
+  const screenResult = document.getElementById('screen-result');
+
+  const overlayResume = document.getElementById('overlay-resume');
+  const resumeNameEl = document.getElementById('resume-name');
+  const resumeBtn = document.getElementById('resume-btn');
+
+  const startForm = document.getElementById('start-form');
+  const nameInput = document.getElementById('student-name');
+  const startBtn = document.getElementById('start-btn');
+
+  const studentNameDisplay = document.getElementById('student-name-display');
+  const timerCard = document.getElementById('timer-card');
+  const timerDisplay = document.getElementById('timer-display');
+
+  const progressText = document.getElementById('progress-text');
+  const progressFill = document.getElementById('progress-fill');
+  const progressTrack = document.querySelector('.progress-track');
+
+  const questionNumberEl = document.getElementById('question-number');
+  const questionTextEl = document.getElementById('question-text');
+  const optionsListEl = document.getElementById('options-list');
+  const lockHintEl = document.getElementById('lock-hint');
+  const nextBtn = document.getElementById('next-btn');
+
+  const overlayConfirm = document.getElementById('overlay-confirm');
+  const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+  const confirmSubmitBtn = document.getElementById('confirm-submit-btn');
+
+  const statusBanner = document.getElementById('status-banner');
+  const statusTitleEl = document.getElementById('status-title');
+  const statusDetailEl = document.getElementById('status-detail');
+  const resultStudentNameEl = document.getElementById('result-student-name');
+  const resultScoreEl = document.getElementById('result-score');
+  const resultPercentageEl = document.getElementById('result-percentage');
+  const statTotalEl = document.getElementById('stat-total');
+  const statAttemptedEl = document.getElementById('stat-attempted');
+  const statUnansweredEl = document.getElementById('stat-unanswered');
+  const statCorrectEl = document.getElementById('stat-correct');
+  const statWrongEl = document.getElementById('stat-wrong');
+  const reviewListEl = document.getElementById('review-list');
+
+  /* ------------------------------------------------------------------
+     Runtime state
+  ------------------------------------------------------------------ */
+  let state = null;
+  let timerInterval = null;
+  let antiCheatAttached = false;
+  let fsEngaged = false;
+
+  /* ------------------------------------------------------------------
+     Storage helpers
+  ------------------------------------------------------------------ */
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object') return null;
+      if (!Array.isArray(parsed.answers) || parsed.answers.length !== TOTAL_QUESTIONS) return null;
+      return parsed;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveState() {
+    if (!state) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      /* storage unavailable — exam continues in-memory for this session */
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     Screen visibility
+  ------------------------------------------------------------------ */
+  function showStart() {
+    screenStart.classList.remove('hidden');
+    screenExam.classList.add('hidden');
+    screenResult.classList.add('hidden');
+    overlayResume.classList.add('hidden');
+    document.body.classList.remove('exam-active');
+  }
+
+  function showExam() {
+    screenStart.classList.add('hidden');
+    screenExam.classList.remove('hidden');
+    screenResult.classList.add('hidden');
+    overlayResume.classList.add('hidden');
+    document.body.classList.add('exam-active');
+  }
+
+  function showResult() {
+    screenStart.classList.add('hidden');
+    screenExam.classList.add('hidden');
+    screenResult.classList.remove('hidden');
+    overlayResume.classList.add('hidden');
+    document.body.classList.remove('exam-active');
+  }
+
+  function showResumeOverlay() {
+    screenStart.classList.add('hidden');
+    screenExam.classList.add('hidden');
+    screenResult.classList.add('hidden');
+    resumeNameEl.textContent = state.name;
+    overlayResume.classList.remove('hidden');
+  }
+
+  function showConfirmModal() {
+    overlayConfirm.classList.remove('hidden');
+  }
+
+  function hideConfirmModal() {
+    overlayConfirm.classList.add('hidden');
+  }
+
+  /* ------------------------------------------------------------------
+     Fullscreen helpers
+  ------------------------------------------------------------------ */
+  function requestFullscreenSafely() {
+    const el = document.documentElement;
+    const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (!req) return;
+    try {
+      const result = req.call(el);
+      if (result && typeof result.catch === 'function') {
+        result.catch(function () { /* denied or unsupported here — continue without it */ });
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  function exitFullscreenSafely() {
+    if (!document.fullscreenElement) return;
+    const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+    if (!exit) return;
+    try {
+      const result = exit.call(document);
+      if (result && typeof result.catch === 'function') result.catch(function () {});
+    } catch (e) { /* ignore */ }
+  }
+
+  /* ------------------------------------------------------------------
+     Anti-cheating handlers
+  ------------------------------------------------------------------ */
+  function preventDefaultHandler(e) {
+    e.preventDefault();
+  }
+
+  function onVisibilityChange() {
+    if (document.hidden && state && state.status === 'in-progress') {
+      finalizeExam('focus-lost');
+    }
+  }
+
+  function onWindowBlur() {
+    if (state && state.status === 'in-progress') {
+      finalizeExam('focus-lost');
+    }
+  }
+
+  function onFullscreenChange() {
+    const isFs = !!document.fullscreenElement;
+    if (isFs) {
+      fsEngaged = true;
+    } else if (fsEngaged && state && state.status === 'in-progress') {
+      finalizeExam('focus-lost');
+    }
+  }
+
+  function onKeyDown(e) {
+    const key = e.key ? e.key.toLowerCase() : '';
+    const ctrlOrCmd = e.ctrlKey || e.metaKey;
+
+    if (e.key === 'F12') { e.preventDefault(); return; }
+    if (ctrlOrCmd && e.shiftKey && (key === 'i' || key === 'j' || key === 'c')) { e.preventDefault(); return; }
+    if (ctrlOrCmd && !e.shiftKey && (key === 'c' || key === 'x' || key === 'v' || key === 'a' || key === 'u' || key === 's' || key === 'p')) {
+      e.preventDefault();
+    }
+  }
+
+  function onBeforeUnload(e) {
+    if (state && state.status === 'in-progress') {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  }
+
+  function onPopState() {
+    if (state && state.status === 'in-progress') {
+      window.history.pushState(null, '', window.location.href);
+    }
+  }
+
+  function attachAntiCheat() {
+    if (antiCheatAttached) return;
+    antiCheatAttached = true;
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('blur', onWindowBlur);
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+    document.addEventListener('contextmenu', preventDefaultHandler);
+    document.addEventListener('selectstart', preventDefaultHandler);
+    document.addEventListener('copy', preventDefaultHandler);
+    document.addEventListener('cut', preventDefaultHandler);
+    document.addEventListener('paste', preventDefaultHandler);
+    document.addEventListener('dragstart', preventDefaultHandler);
+    document.addEventListener('keydown', onKeyDown);
+    window.addEventListener('beforeunload', onBeforeUnload);
+    window.addEventListener('popstate', onPopState);
+    window.history.pushState(null, '', window.location.href);
+  }
+
+  function detachAntiCheat() {
+    if (!antiCheatAttached) return;
+    antiCheatAttached = false;
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+    window.removeEventListener('blur', onWindowBlur);
+    document.removeEventListener('fullscreenchange', onFullscreenChange);
+    document.removeEventListener('webkitfullscreenchange', onFullscreenChange);
+    document.removeEventListener('contextmenu', preventDefaultHandler);
+    document.removeEventListener('selectstart', preventDefaultHandler);
+    document.removeEventListener('copy', preventDefaultHandler);
+    document.removeEventListener('cut', preventDefaultHandler);
+    document.removeEventListener('paste', preventDefaultHandler);
+    document.removeEventListener('dragstart', preventDefaultHandler);
+    document.removeEventListener('keydown', onKeyDown);
+    window.removeEventListener('beforeunload', onBeforeUnload);
+    window.removeEventListener('popstate', onPopState);
+  }
+
+  /* ------------------------------------------------------------------
+     NOTE: an earlier version of this file also watched
+     window.outerWidth/innerWidth to guess at docked devtools. That
+     heuristic is removed — browser zoom (Ctrl +/-, pinch-zoom, OS
+     display scaling) changes those same values and was wrongly
+     ending exams for students who simply zoomed the page. Devtools
+     deterrence is still handled by blocking F12 / Ctrl+Shift+I / etc.
+     in onKeyDown, and by the focus/visibility/fullscreen checks above.
+  ------------------------------------------------------------------ */
+
+  /* ------------------------------------------------------------------
+     Timer
+  ------------------------------------------------------------------ */
+  function startTimer() {
+    stopTimer();
+    updateTimerDisplay();
+    timerInterval = setInterval(updateTimerDisplay, 500);
+  }
+
+  function stopTimer() {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  }
+
+  function updateTimerDisplay() {
+    if (!state || state.status !== 'in-progress') return;
+    const remaining = state.endsAt - Date.now();
+
+    if (remaining <= 0) {
+      timerDisplay.textContent = '00:00';
+      finalizeExam('expired');
+      return;
+    }
+
+    const totalSeconds = Math.ceil(remaining / 1000);
+    const mm = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+    const ss = String(totalSeconds % 60).padStart(2, '0');
+    timerDisplay.textContent = mm + ':' + ss;
+
+    timerCard.classList.remove('timer-warning', 'timer-critical');
+    if (remaining <= 60 * 1000) {
+      timerCard.classList.add('timer-critical');
+    } else if (remaining <= 5 * 60 * 1000) {
+      timerCard.classList.add('timer-warning');
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     Question rendering & answering
+  ------------------------------------------------------------------ */
+  function renderQuestion() {
+    const idx = state.currentIndex;
+    const item = BANK[idx];
+
+    questionNumberEl.textContent = 'Sawaal ' + (idx + 1);
+    questionTextEl.textContent = item.q;
+    progressText.textContent = 'Sawaal ' + (idx + 1) + ' of ' + TOTAL_QUESTIONS;
+    progressFill.style.width = (((idx + 1) / TOTAL_QUESTIONS) * 100) + '%';
+    if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(idx + 1));
+
+    optionsListEl.innerHTML = '';
+    const existingAnswer = state.answers[idx];
+
+    item.o.forEach(function (optionText, i) {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'option-row';
+      row.setAttribute('role', 'radio');
+
+      const letterSpan = document.createElement('span');
+      letterSpan.className = 'option-letter';
+      letterSpan.textContent = LETTERS[i];
+
+      const textSpan = document.createElement('span');
+      textSpan.className = 'option-text';
+      textSpan.textContent = optionText;
+
+      row.appendChild(letterSpan);
+      row.appendChild(textSpan);
+
+      if (existingAnswer !== null && existingAnswer !== undefined) {
+        row.disabled = true;
+        if (i === existingAnswer) {
+          row.classList.add('selected');
+          row.setAttribute('aria-checked', 'true');
+        } else {
+          row.classList.add('locked-out');
+          row.setAttribute('aria-checked', 'false');
+        }
+      } else {
+        row.setAttribute('aria-checked', 'false');
+        row.addEventListener('click', function () { selectOption(i); });
+      }
+
+      optionsListEl.appendChild(row);
+    });
+
+    const isLast = idx === TOTAL_QUESTIONS - 1;
+    nextBtn.textContent = isLast ? 'Exam Submit Karein' : 'Agla Sawaal';
+
+    if (existingAnswer !== null && existingAnswer !== undefined) {
+      nextBtn.disabled = false;
+      lockHintEl.textContent = 'Aapka answer lock ho gaya hai, ab change nahi ho sakta.';
+    } else {
+      nextBtn.disabled = true;
+      lockHintEl.textContent = 'Aage badhne ke liye ek option select karein. Select karte hi answer lock ho jayega.';
+    }
+  }
+
+  function selectOption(i) {
+    if (!state || state.status !== 'in-progress') return;
+    const idx = state.currentIndex;
+    if (state.answers[idx] !== null && state.answers[idx] !== undefined) return;
+    state.answers[idx] = i;
+    saveState();
+    renderQuestion();
+  }
+
+  function advanceQuestion() {
+    if (!state || state.currentIndex >= TOTAL_QUESTIONS - 1) return;
+    state.currentIndex += 1;
+    saveState();
+    renderQuestion();
+  }
+
+  function attemptSubmit() {
+    const unanswered = state.answers.filter(function (a) { return a === null || a === undefined; }).length;
+    if (unanswered > 0) {
+      showConfirmModal();
+    } else {
+      finalizeExam('completed');
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     Scoring — includes a full per-question review (your answer vs
+     the correct answer) so the result screen can show it.
+  ------------------------------------------------------------------ */
+  function computeResult() {
+    let correct = 0;
+    let wrong = 0;
+    let attempted = 0;
+    const review = [];
+
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+      const a = state.answers[i];
+      const answered = a !== null && a !== undefined;
+      const isCorrect = answered && a === BANK[i].k;
+
+      if (answered) {
+        attempted++;
+        if (isCorrect) correct++; else wrong++;
+      }
+
+      review.push({
+        index: i,
+        question: BANK[i].q,
+        selected: answered ? a : null,
+        selectedText: answered ? BANK[i].o[a] : null,
+        correctIndex: BANK[i].k,
+        correctText: BANK[i].o[BANK[i].k],
+        answered: answered,
+        isCorrect: isCorrect
+      });
+    }
+
+    const unanswered = TOTAL_QUESTIONS - attempted;
+    const score = correct;
+    const percentage = Math.round((score / TOTAL_QUESTIONS) * 100 * 100) / 100;
+
+    return { attempted: attempted, unanswered: unanswered, correct: correct, wrong: wrong, score: score, percentage: percentage, review: review };
+  }
+
+  /* ------------------------------------------------------------------
+     Finalization
+  ------------------------------------------------------------------ */
+  function finalizeExam(status) {
+    if (!state || state.status !== 'in-progress') return;
+    stopTimer();
+    detachAntiCheat();
+    exitFullscreenSafely();
+
+    state.status = status;
+    state.result = computeResult();
+    state.endedAt = Date.now();
+    saveState();
+
+    renderResult();
+    showResult();
+  }
+
+  function renderResult() {
+    const r = state.result || computeResult();
+
+    resultStudentNameEl.textContent = state.name;
+    resultScoreEl.textContent = r.score + ' / ' + TOTAL_QUESTIONS;
+    resultPercentageEl.textContent = r.percentage.toFixed(2) + '%';
+    statTotalEl.textContent = String(TOTAL_QUESTIONS);
+    statAttemptedEl.textContent = String(r.attempted);
+    statUnansweredEl.textContent = String(r.unanswered);
+    statCorrectEl.textContent = String(r.correct);
+    statWrongEl.textContent = String(r.wrong);
+
+    statusBanner.classList.remove('status-completed', 'status-expired', 'status-violation');
+
+    let cls = 'status-completed';
+    let title = 'Exam Complete';
+    let detail = 'Aapne exam successfully complete kar liya hai.';
+
+    switch (state.status) {
+      case 'completed':
+        cls = 'status-completed';
+        title = 'Exam Complete';
+        detail = 'Aapne exam successfully complete kar liya hai.';
+        break;
+      case 'expired':
+        cls = 'status-expired';
+        title = 'Time Khatam';
+        detail = '20-minute ki time limit khatam ho gayi hai. Us waqt tak ke aapke answers save ho chuke hain.';
+        break;
+      case 'focus-lost':
+        cls = 'status-violation';
+        title = 'Focus Lost';
+        detail = 'Aapka exam terminate kar diya gaya kyunki aap exam window se bahar chale gaye the.';
+        break;
+      case 'terminated':
+        cls = 'status-violation';
+        title = 'Exam Terminated';
+        detail = 'Unauthorized browser/debugging activity detect hui hai.';
+        break;
+    }
+
+    statusBanner.classList.add(cls);
+    statusTitleEl.textContent = title;
+    statusDetailEl.textContent = detail;
+
+    renderReview(r.review);
+  }
+
+  /* ------------------------------------------------------------------
+     Answer review — per question: correct / wrong / unanswered,
+     with the student's answer and, when wrong or unanswered, the
+     correct answer shown alongside it.
+  ------------------------------------------------------------------ */
+  function renderReview(review) {
+    if (!reviewListEl) return;
+    reviewListEl.innerHTML = '';
+
+    review.forEach(function (item) {
+      const row = document.createElement('div');
+      let badgeClass = 'review-badge-correct';
+      let badgeText = 'Sahi';
+
+      if (!item.answered) {
+        badgeClass = 'review-badge-unanswered';
+        badgeText = 'Answer Nahi Diya';
+      } else if (!item.isCorrect) {
+        badgeClass = 'review-badge-wrong';
+        badgeText = 'Galat';
+      }
+
+      row.className = 'review-item';
+
+      const head = document.createElement('div');
+      head.className = 'review-item-head';
+
+      const qNum = document.createElement('span');
+      qNum.className = 'review-item-number';
+      qNum.textContent = 'Sawaal ' + (item.index + 1);
+
+      const badge = document.createElement('span');
+      badge.className = 'review-badge ' + badgeClass;
+      badge.textContent = badgeText;
+
+      head.appendChild(qNum);
+      head.appendChild(badge);
+
+      const qText = document.createElement('p');
+      qText.className = 'review-item-question';
+      qText.textContent = item.question;
+
+      const answersWrap = document.createElement('div');
+      answersWrap.className = 'review-item-answers';
+
+      const yourAnswer = document.createElement('p');
+      yourAnswer.className = 'review-answer-line';
+      const yourLabel = document.createElement('span');
+      yourLabel.className = 'review-answer-label';
+      yourLabel.textContent = 'Aapka Jawab: ';
+      yourAnswer.appendChild(yourLabel);
+      const yourValue = document.createElement('span');
+      yourValue.className = item.answered ? (item.isCorrect ? 'review-value-correct' : 'review-value-wrong') : 'review-value-muted';
+      yourValue.textContent = item.answered ? item.selectedText : 'Koi answer nahi diya';
+      yourAnswer.appendChild(yourValue);
+      answersWrap.appendChild(yourAnswer);
+
+      if (!item.answered || !item.isCorrect) {
+        const correctAnswer = document.createElement('p');
+        correctAnswer.className = 'review-answer-line';
+        const correctLabel = document.createElement('span');
+        correctLabel.className = 'review-answer-label';
+        correctLabel.textContent = 'Sahi Jawab: ';
+        correctAnswer.appendChild(correctLabel);
+        const correctValue = document.createElement('span');
+        correctValue.className = 'review-value-correct';
+        correctValue.textContent = item.correctText;
+        correctAnswer.appendChild(correctValue);
+        answersWrap.appendChild(correctAnswer);
+      }
+
+      row.appendChild(head);
+      row.appendChild(qText);
+      row.appendChild(answersWrap);
+      reviewListEl.appendChild(row);
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     Starting / resuming the exam
+  ------------------------------------------------------------------ */
+  function startExam(name) {
+    const now = Date.now();
+    state = {
+      name: name,
+      startedAt: now,
+      endsAt: now + EXAM_DURATION_MS,
+      currentIndex: 0,
+      answers: new Array(TOTAL_QUESTIONS).fill(null),
+      status: 'in-progress',
+      result: null
+    };
+    saveState();
+    engageExam();
+  }
+
+  function engageExam() {
+    studentNameDisplay.textContent = state.name;
+    attachAntiCheat();
+    requestFullscreenSafely();
+    showExam();
+    renderQuestion();
+    startTimer();
+  }
+
+  /* ------------------------------------------------------------------
+     Event wiring
+  ------------------------------------------------------------------ */
+  nameInput.addEventListener('input', function () {
+    startBtn.disabled = nameInput.value.trim().length < 2;
+  });
+
+  startForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+    if (name.length < 2) return;
+    startExam(name);
+  });
+
+  resumeBtn.addEventListener('click', function () {
+    engageExam();
+  });
+
+  nextBtn.addEventListener('click', function () {
+    if (!state || state.status !== 'in-progress') return;
+    if (state.currentIndex === TOTAL_QUESTIONS - 1) {
+      attemptSubmit();
+    } else {
+      advanceQuestion();
+    }
+  });
+
+  confirmCancelBtn.addEventListener('click', function () {
+    hideConfirmModal();
+  });
+
+  confirmSubmitBtn.addEventListener('click', function () {
+    hideConfirmModal();
+    finalizeExam('completed');
+  });
+
+  /* ------------------------------------------------------------------
+     Boot
+  ------------------------------------------------------------------ */
+  function init() {
+    const saved = loadState();
+
+    if (!saved) {
+      showStart();
+      return;
+    }
+
+    state = saved;
+
+    if (state.status !== 'in-progress') {
+      renderResult();
+      showResult();
+      return;
+    }
+
+    if (Date.now() >= state.endsAt) {
+      // Deadline already passed while the page was closed/refreshed.
+      finalizeExam('expired');
+      return;
+    }
+
+    showResumeOverlay();
+  }
+
+  init();
+})();
+
+ </script>
+</body>
+</html>
